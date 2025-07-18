@@ -1,6 +1,23 @@
 import { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
-import { baseUrl } from "./auth-config"
+// Remove unused import
+// import { baseUrl } from "./auth-config"
+
+// Extend the built-in session types
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id?: string;
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+    }
+  }
+
+  interface User {
+    id?: string;
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
