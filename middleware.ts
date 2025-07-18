@@ -1,9 +1,3 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
-
-// This function can be marked `async` if using `await` inside
-export function middleware(request: NextRequest) {
-  // We're not going to use middleware for authentication
-  // Just pass through all requests
-  return NextResponse.next()
-}
+// We're not using middleware for authentication to avoid redirect loops
+// This file is intentionally empty to disable the middleware
+// Authentication is handled directly in the API routes and client components

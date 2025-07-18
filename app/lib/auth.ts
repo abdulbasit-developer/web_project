@@ -1,5 +1,6 @@
 import { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
+import { baseUrl } from "./auth-config"
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -8,19 +9,33 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     })
   ],
-  // Simplified callbacks
+  // Enhanced callbacks for better error handling
   callbacks: {
-    async session({ session }) {
+    async session({ session, token }) {
+      if (session?.user) {
+        // Add the user ID to the session
+        session.user.id = token.sub!
+      }
       return session
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        // Add user info to the token
+        token.uid = user.id
+      }
+      return token
     },
   },
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
-  // Use the default sign-in page for now
-  // pages: {
-  //   signIn: '/auth/signin',
-  // },
-  debug: process.env.NODE_ENV === 'development',
+  pages: {
+    signIn: '/auth/signin',
+  },
+  // Enable debug in both development and production temporarily
+  // to help troubleshoot deployment issues
+  debug: true,
+  // Explicitly set the secret
+  secret: process.env.NEXTAUTH_SECRET,
 }

@@ -18,9 +18,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if API key is available
-    if (!process.env.GROQ_API_KEY || process.env.GROQ_API_KEY === 'your_groq_api_key_here') {
+    if (!process.env.GOOGLE_API_KEY) {
       return NextResponse.json(
-        { error: 'API key is missing or invalid. Please set a valid GROQ_API_KEY in your .env.local file.' },
+        { error: 'API key is missing. Please set a valid GOOGLE_API_KEY in your environment variables.' },
         { status: 500 }
       );
     }

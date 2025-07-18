@@ -1,5 +1,4 @@
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
-import { ChatGroq } from "@langchain/groq";
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import { PromptTemplate } from "@langchain/core/prompts";
@@ -9,8 +8,8 @@ import os from 'os';
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 
 // Check if API key is available
-if (!process.env.GROQ_API_KEY || process.env.GROQ_API_KEY === 'your_groq_api_key_here') {
-  console.error('GROQ_API_KEY is missing or using the default value. Please set a valid API key in .env.local');
+if (!process.env.GOOGLE_API_KEY) {
+  console.error('GOOGLE_API_KEY is missing. Please set a valid API key in your environment variables.');
 }
 
 // Initialize the LLM
