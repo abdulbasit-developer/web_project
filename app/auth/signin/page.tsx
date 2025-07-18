@@ -10,13 +10,13 @@ export default function SignIn() {
   const { data: session, status } = useSession()
 
   useEffect(() => {
-    // Only redirect if we're certain the user is authenticated
+    // Only redirect if we&apos;re certain the user is authenticated
     if (status === 'authenticated' && session) {
       router.push('/')
     }
   }, [session, status, router])
 
-  // Don't render anything while checking authentication status
+  // Don&apos;t render anything while checking authentication status
   if (status === 'loading') {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
