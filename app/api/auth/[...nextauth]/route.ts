@@ -28,8 +28,7 @@ const handler = NextAuth({
       return session;
     },
   },
-  // Use the baseUrl from our auth-config
-  url: baseUrl,
+  // NextAuth will use NEXTAUTH_URL from environment variables
 })
 
 export { handler as GET, handler as POST }
