@@ -6,11 +6,12 @@ import ReactMarkdown from 'react-markdown';
 interface MarkdownRendererProps {
   content: string;
   className?: string;
+  darkMode?: boolean;
 }
 
-const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className = '' }) => {
+const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className = '', darkMode = false }) => {
   return (
-    <div className={`markdown-body ${className}`}>
+    <div className={`markdown-body ${className} ${darkMode ? 'dark-mode' : ''}`}>
       <ReactMarkdown>{content}</ReactMarkdown>
       <style jsx global>{`
         .markdown-body {
@@ -19,6 +20,47 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, className 
           font-size: 16px;
           line-height: 1.5;
           word-wrap: break-word;
+        }
+        
+        .markdown-body.dark-mode {
+          color: #e1e4e8;
+        }
+        
+        .markdown-body.dark-mode h1,
+        .markdown-body.dark-mode h2,
+        .markdown-body.dark-mode h3 {
+          color: #e1e4e8;
+        }
+        
+        .markdown-body.dark-mode blockquote {
+          color: #8b949e;
+          border-left-color: #3b434b;
+        }
+        
+        .markdown-body.dark-mode code {
+          background-color: rgba(240, 246, 252, 0.15);
+        }
+        
+        .markdown-body.dark-mode pre {
+          background-color: #161b22;
+        }
+        
+        .markdown-body.dark-mode a {
+          color: #58a6ff;
+        }
+        
+        .markdown-body.dark-mode table th,
+        .markdown-body.dark-mode table td {
+          border-color: #30363d;
+        }
+        
+        .markdown-body.dark-mode table tr {
+          background-color: #0d1117;
+          border-top-color: #30363d;
+        }
+        
+        .markdown-body.dark-mode table tr:nth-child(2n) {
+          background-color: #161b22;
         }
         
         .markdown-body h1 {

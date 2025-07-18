@@ -5,9 +5,10 @@ import React, { useState } from 'react';
 interface CopyButtonProps {
   text: string;
   label?: string;
+  darkMode?: boolean;
 }
 
-const CopyButton: React.FC<CopyButtonProps> = ({ text, label = 'Copy' }) => {
+const CopyButton: React.FC<CopyButtonProps> = ({ text, label = 'Copy', darkMode = false }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -25,8 +26,8 @@ const CopyButton: React.FC<CopyButtonProps> = ({ text, label = 'Copy' }) => {
       onClick={handleCopy}
       className={`inline-flex items-center px-3 py-1 rounded-md text-sm font-medium transition-colors ${
         copied
-          ? 'bg-green-100 text-green-800'
-          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          ? darkMode ? 'bg-green-900 text-green-200' : 'bg-green-100 text-green-800'
+          : darkMode ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
       }`}
     >
       {copied ? (

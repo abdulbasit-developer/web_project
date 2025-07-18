@@ -6,12 +6,14 @@ interface DownloadButtonProps {
   content: string;
   fileName: string;
   label?: string;
+  darkMode?: boolean;
 }
 
 const DownloadButton: React.FC<DownloadButtonProps> = ({
   content,
   fileName,
-  label = 'Download'
+  label = 'Download',
+  darkMode = false
 }) => {
   const handleDownload = () => {
     // Create a blob with the content
@@ -37,7 +39,11 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
   return (
     <button
       onClick={handleDownload}
-      className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors"
+      className={`inline-flex items-center px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+        darkMode 
+          ? 'bg-blue-900 text-blue-200 hover:bg-blue-800' 
+          : 'bg-blue-100 text-blue-800 hover:bg-blue-200'
+      }`}
     >
       <svg
         className="w-4 h-4 mr-1.5"

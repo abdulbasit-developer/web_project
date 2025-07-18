@@ -6,7 +6,9 @@ const nextConfig: NextConfig = {
   devIndicators: false,
   
   // For App Router, we handle large payloads differently
-  serverExternalPackages: ['@langchain/community'],
+  experimental: {
+    serverComponentsExternalPackages: ['@langchain/community'],
+  },
   
   // Important for NextAuth.js with App Router
   env: {

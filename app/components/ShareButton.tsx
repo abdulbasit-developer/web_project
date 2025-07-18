@@ -5,9 +5,10 @@ import React, { useState } from 'react';
 interface ShareButtonProps {
   title: string;
   text: string;
+  darkMode?: boolean;
 }
 
-const ShareButton: React.FC<ShareButtonProps> = ({ title, text }) => {
+const ShareButton: React.FC<ShareButtonProps> = ({ title, text, darkMode = false }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   const handleShare = async () => {
@@ -37,7 +38,11 @@ const ShareButton: React.FC<ShareButtonProps> = ({ title, text }) => {
     <div className="relative">
       <button
         onClick={handleShare}
-        className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-purple-100 text-purple-800 hover:bg-purple-200 transition-colors"
+        className={`inline-flex items-center px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+          darkMode 
+            ? 'bg-purple-900 text-purple-200 hover:bg-purple-800' 
+            : 'bg-purple-100 text-purple-800 hover:bg-purple-200'
+        }`}
       >
         <svg
           className="w-4 h-4 mr-1.5"
@@ -56,9 +61,13 @@ const ShareButton: React.FC<ShareButtonProps> = ({ title, text }) => {
         Share
       </button>
       {showTooltip && (
-        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-gray-800 text-white text-xs rounded-md whitespace-nowrap">
+        <div className={`absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 text-xs rounded-md whitespace-nowrap ${
+          darkMode ? 'bg-gray-700 text-gray-200' : 'bg-gray-800 text-white'
+        }`}>
           Share functionality not available
-          <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+          <div className={`absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent ${
+            darkMode ? 'border-t-gray-700' : 'border-t-gray-800'
+          }`}></div>
         </div>
       )}
     </div>
