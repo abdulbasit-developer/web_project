@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import AuthButton from './AuthButton';
 
 const Header: React.FC = () => {
   return (
@@ -46,6 +47,7 @@ const Header: React.FC = () => {
                 />
               </svg>
             </a>
+            <AuthButton />
           </div>
         </div>
       </div>

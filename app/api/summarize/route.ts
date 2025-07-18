@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/app/lib/auth';
 import { savePdfTemporarily, summarizePdf } from '@/app/utils/pdfProcessor';
 import { writeFile } from 'fs/promises';
 import { join } from 'path';
@@ -6,6 +8,15 @@ import { tmpdir } from 'os';
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if user is authenticated
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json(
+        { error: 'Authentication required. Please sign in to use this service.' },
+        { status: 401 }
+      );
+    }
+
     // Check if API key is available
     if (!process.env.GROQ_API_KEY || process.env.GROQ_API_KEY === 'your_groq_api_key_here') {
       return NextResponse.json(
